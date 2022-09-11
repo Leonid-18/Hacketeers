@@ -10,12 +10,9 @@ class EdgeSerializer(serializers.Serializer):
     data = serializers.CharField(max_length=100000, required=False)
 
 
-class NodeSerializer(ModelSerializer):
-    class Meta:
-        model = Node
-        fields = (
-            'id', 'data'
-        )
+class NodeSerializer(serializers.Serializer):
+    id = serializers.CharField()
+    data = serializers.CharField(max_length=100000, required=False)
 
 
 class NodeResponseSerializer(serializers.Serializer):
