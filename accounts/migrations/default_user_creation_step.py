@@ -30,6 +30,16 @@ def create_user(apps, schema_editor):
     )
     user3.set_password('adminadmin')
     user3.save()
+    user4 = User.objects.create(
+        username='jamie@amazon.com',
+        email='jamie@amazon.com',
+        first_name='Jamie',
+        password='adminadmin',
+        is_superuser=False,
+        is_staff=True
+    )
+    user4.set_password('adminadmin')
+    user4.save()
 
 
 class Migration(migrations.Migration):
