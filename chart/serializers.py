@@ -3,15 +3,34 @@ from .models import Node, Edge
 from rest_framework.serializers import ModelSerializer
 
 
-class EdgeSerializer(ModelSerializer):
+class EdgeSerializer(serializers.Serializer):
+    id = serializers.CharField()
+    target = serializers.CharField(required=False)
+    source = serializers.CharField(required=False)
+    data = serializers.CharField(max_length=100000, required=False)
+
+
+class NodeSerializer(ModelSerializer):
     class Meta:
-        model = Edge
+        model = Node
         fields = (
-            'id', 'target', 'source', 'data'
+            'id', 'data'
         )
 
 
-class NodeSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Node
-        fields = ['id', 'data']
+class NodeResponseSerializer(serializers.Serializer):
+    id = serializers.SerializerMethodField()
+    data = serializers.CharField(max_length=100000)
+
+    def get_id(self, obj):
+        return obj.custom_id
+
+
+class EdgeResponseSerializer(serializers.Serializer):
+    id = serializers.SerializerMethodField()
+    target = serializers.CharField()
+    source = serializers.CharField()
+    data = serializers.CharField(max_length=100000)
+
+    def get_id(self, obj):
+        return obj.custom_id
